@@ -1,12 +1,11 @@
-# Data Source: https://www.kaggle.com/susuwatari/ppp-loan-data-paycheck-protection-program
-
 # Project by Neil Collins | 8/18/2020
+
+# Data Source: https://www.kaggle.com/susuwatari/ppp-loan-data-paycheck-protection-program
 
 # This project aims to analyze trends in the Paycheck Protection Program 
 # and to generate predictive models based on demographics to predict the likelihood of receiving a loan.
 
 # Overarching Business Question: What factors played the largest roles in PPP loan distribution?
-
 
 ppp <- read.csv('c://Users/Neil/Desktop/PPP_data_150k_plus.csv')
 
@@ -19,6 +18,8 @@ sapply(ppp,class) #finding the data type of each column
 summary(ppp)
 
 # Data Cleaning - Utilizes Tidyverse / dplyr
+# I will be utilizing the max value of loans available in the data set's range as the exact loan distribution is unknown. 
+# In this section I will be cleaning the extra characters from the formatted data so that it can be more easily utilized in a regression.
 
 library(tidyverse)
 
@@ -29,7 +30,6 @@ distppp <- select(ppp, LoanRange, City, State, NAICSCode, BusinessType, NonProfi
 # DateApproved left out initially but may be looked at later though all approvals were within an approximate 1 month range before the funds depleted
 
 # Removing extra characters, spaces, coercing numeric
-
 
 library(tm)
 
