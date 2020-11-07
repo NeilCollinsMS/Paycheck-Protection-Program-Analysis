@@ -57,7 +57,7 @@ for(i in 1:length(distppp$LoanRange)){
 
 colnames(distppp)[1] <- "MaxLoan"
 
-# Turning NonProfit into a binary variable
+# Turning NonProfit into a dummy variable
 
 for(i in 1:length(distppp$NonProfit)){
   if(distppp$NonProfit[i] == 'Y'){
@@ -68,7 +68,7 @@ for(i in 1:length(distppp$NonProfit)){
   }
 }
 
-# Generate binary columns for every business type, potentially lender
+# Generate dummy variables for every business type, potentially lender
 
 # Multivariate regression analysis utilizing necessary variables
 
