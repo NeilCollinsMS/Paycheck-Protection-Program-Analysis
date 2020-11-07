@@ -57,8 +57,16 @@ for(i in 1:length(distppp$LoanRange)){
 
 colnames(distppp)[1] <- "MaxLoan"
 
+for(i in 1:length(distppp$NonProfit)){
+  if(distppp$NonProfit[i] == 'Y'){
+    distppp$NonProfit[i] <- 1
+  }
+  else if(distppp$NonProfit[i] == ''){
+    distppp$NonProfit[i] <- 0
+  }
+}
 
-
+# Turning NonProfit into a binary variable
 
 
 
