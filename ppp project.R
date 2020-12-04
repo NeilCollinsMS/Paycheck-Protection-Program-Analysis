@@ -1,4 +1,4 @@
-# Project by Neil Collins | 8/18/2020
+# Project by Neil Collins
 
 # Data Source: https://www.kaggle.com/susuwatari/ppp-loan-data-paycheck-protection-program
 
@@ -33,15 +33,15 @@ distppp <- select(ppp, LoanRange, City, State, NAICSCode, BusinessType, NonProfi
 
 library(tm)
 
-distppp$LoanRange <- sub(". ","", distppp$LoanRange)
+distppp$LoanRange <- sub(". ","", distppp$LoanRange) # Removes the letter and space before each value
 
-distppp$LoanRange <- sub(".*-","", distppp$LoanRange)
+distppp$LoanRange <- sub(".*-","", distppp$LoanRange) # Removes the - and everything prior
 
-distppp$LoanRange <- removeWords(distppp$LoanRange," million")
+distppp$LoanRange <- removeWords(distppp$LoanRange," million") # Removes "million" from the million string values
 
-distppp$LoanRange <- sub(",000","",distppp$LoanRange)
+distppp$LoanRange <- sub(",000","",distppp$LoanRange) # Removes the ,000 from 350k values so the values can be coerced to numeric
 
-distppp$LoanRange <- as.numeric(distppp$LoanRange)
+distppp$LoanRange <- as.numeric(distppp$LoanRange) # Coerce values to numeric so they can be manipulated
 
 for(i in 1:length(distppp$LoanRange)){
   
@@ -55,9 +55,9 @@ for(i in 1:length(distppp$LoanRange)){
   
 }
 
-colnames(distppp)[1] <- "MaxLoan"
+# This could be sped up with vectorization, but for the purpose of this project I will be using the less efficient for loops.
 
-# Turning NonProfit into a dummy variable
+colnames(distppp)[1] <- "MaxLoan"
 
 for(i in 1:length(distppp$NonProfit)){
   if(distppp$NonProfit[i] == 'Y'){
