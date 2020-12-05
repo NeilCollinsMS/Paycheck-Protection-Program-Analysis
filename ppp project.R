@@ -9,6 +9,10 @@
 
 ppp <- read.csv('c://Users/Neil/Desktop/PPP_data_150k_plus.csv')
 
+# Given that I am using some unoptimized cleaning methods, I like to runthe below code periodically so I have a CSV backup if my workspace is cleared on accident
+# library(openxlsx)
+# write.xlsx(distppp, "c://Users/Neil/Desktop/filteredPPP.csv")
+
 # Data Exploration
 
 head(ppp) #Taking a look at the first 6 columns of the data
