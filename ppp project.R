@@ -80,43 +80,25 @@ distppp$BusinessType <- as.factor(distppp$BusinessType)
 
 distppp$BusinessType <- sub("^$","Unknown",distppp$BusinessType)
 
-# Cleaning up column names so dummy encoding is a bit nicer looking. This got a little dirty but overall it was sorted out. 
+# Cleaning up column names so dummy encoding is a bit nicer looking. 
 
-# There were easier ways to redo this but while long winded, it was an easy fix. 
+distppp$BusinessType <- sub("Limited  Liability Company" ,"",distppp$BusinessType) #There was something funky going on with this string, had to break it down
 
-distppp$BusinessType <- sub("Non-Profit Organization" ,"Non Profit",distppp$BusinessType)
+distppp$BusinessType <- gsub("[()]","",distppp$BusinessType)
 
-distppp$BusinessType <- sub("Subchapter S Corporation" ,"Subchapter S",distppp$BusinessType)
+distppp$BusinessType <- gsub(" ","_",distppp$BusinessType)
 
-distppp$BusinessType <- sub("Limited Liability Company" ,"",distppp$BusinessType) #There was something funky going on with this string, had to break it down
+distppp$BusinessType <- sub("Employee_Stock_Ownership_PlanESOP" ,"ESOP",distppp$BusinessType)
 
-distppp$BusinessType <- gsub("()","",distppp$BusinessType)
+distppp$BusinessType <- sub("Rollover_as_Business_Start-Ups_ROB" ,"Rollover",distppp$BusinessType)
 
-distppp$BusinessType <- gsub(" *","",distppp$BusinessType) # Removed all spaces, was easier to fix this than the problems I was having with a certain column
+distppp$BusinessType <- sub("Non-Profit_Childcare_Center" ,"NP_Child_Care",distppp$BusinessType)
 
-distppp$BusinessType <- sub("Self-EmployedIndividuals", "Self_Employed", distppp$BusinessType)
+distppp$BusinessType <- sub("Non-Profit_Organization" ,"Non_Profit",distppp$BusinessType)
 
-distppp$BusinessType <- sub("SubchapterS", "Subchapter_S", distppp$BusinessType)
+distppp$BusinessType <- sub("Self-Employed_Individuals" ,"Self_Employed",distppp$BusinessType)
 
-distppp$BusinessType <- sub("ProfessionalAssociation", "Professional_Association", distppp$BusinessType)
-
-distppp$BusinessType <- sub("JointVenture", "Joint_Venture", distppp$BusinessType)
-
-distppp$BusinessType <- sub("RolloverasBusinessStart-UpsROB", "Rollover", distppp$BusinessType)
-
-distppp$BusinessType <- sub("LiabilityPartnership", "LLC_Partnership", distppp$BusinessType)
-
-distppp$BusinessType <- sub("TenantinCommon", "Tenant_In_Common", distppp$BusinessType)
-
-distppp$BusinessType <- sub("SoleProprietorship", "Sole_Owner", distppp$BusinessType)
-
-distppp$BusinessType <- sub("Non-ProfitChildcareCenter", "NP_Child_Care", distppp$BusinessType)
-
-distppp$BusinessType <- sub("EmployeeStockOwnershipPlanESOP", "ESOP", distppp$BusinessType)
-
-distppp$BusinessType <- sub("IndependentContractors", "Ind_Contractor", distppp$BusinessType)
-
-distppp$BusinessType <- sub("NonProfit", "Non_Profit", distppp$BusinessType)
+distppp$BusinessType <- sub("Subchapter_S_Corporation" ,"Subchapter_S",distppp$BusinessType)
 
 # Dummy Coding 
 
