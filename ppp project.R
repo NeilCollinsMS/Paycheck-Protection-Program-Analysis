@@ -109,9 +109,9 @@ distppp <- distppp[!(distppp$Type_Rollover == 1),] # Only 4 companies, not enoug
 
 distppp$Type_Rollover <- NULL 
 
-distppp <- distppp[!(distppp$Type_Tenant_In_Common == 1),] # Only 20 companies, same reasoning as above
+distppp <- distppp[!(distppp$Type_Tenant_in_Common == 1),] # Only 20 companies, same reasoning as above
 
-distppp$Type_Tenant_In_Common <- NULL
+distppp$Type_Tenant_in_Common <- NULL
 
 
 
