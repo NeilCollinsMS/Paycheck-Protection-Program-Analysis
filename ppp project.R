@@ -116,7 +116,7 @@ distppp$BusinessType <- sub("EmployeeStockOwnershipPlanESOP", "ESOP", distppp$Bu
 
 distppp$BusinessType <- sub("IndependentContractors", "Ind. Contractor", distppp$BusinessType)
 
-distppp$BusinessType <- sub("NonProfit", "Non Profit", distppp$BusinessType)=
+distppp$BusinessType <- sub("NonProfit", "Non Profit", distppp$BusinessType)
 
 # Dummy Coding 
 
