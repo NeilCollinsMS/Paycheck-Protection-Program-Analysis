@@ -94,29 +94,29 @@ distppp$BusinessType <- gsub("()","",distppp$BusinessType)
 
 distppp$BusinessType <- gsub(" *","",distppp$BusinessType) # Removed all spaces, was easier to fix this than the problems I was having with a certain column
 
-distppp$BusinessType <- sub("Self-EmployedIndividuals", "Self Employed", distppp$BusinessType)
+distppp$BusinessType <- sub("Self-EmployedIndividuals", "Self_Employed", distppp$BusinessType)
 
-distppp$BusinessType <- sub("SubchapterS", "Subchapter S", distppp$BusinessType)
+distppp$BusinessType <- sub("SubchapterS", "Subchapter_S", distppp$BusinessType)
 
-distppp$BusinessType <- sub("ProfessionalAssociation", "Professional Association", distppp$BusinessType)
+distppp$BusinessType <- sub("ProfessionalAssociation", "Professional_Association", distppp$BusinessType)
 
-distppp$BusinessType <- sub("JointVenture", "Joint Venture", distppp$BusinessType)
+distppp$BusinessType <- sub("JointVenture", "Joint_Venture", distppp$BusinessType)
 
 distppp$BusinessType <- sub("RolloverasBusinessStart-UpsROB", "Rollover", distppp$BusinessType)
 
-distppp$BusinessType <- sub("LiabilityPartnership", "LLC Partnership", distppp$BusinessType)
+distppp$BusinessType <- sub("LiabilityPartnership", "LLC_Partnership", distppp$BusinessType)
 
-distppp$BusinessType <- sub("TenantinCommon", "Tenant In Common", distppp$BusinessType)
+distppp$BusinessType <- sub("TenantinCommon", "Tenant_In_Common", distppp$BusinessType)
 
-distppp$BusinessType <- sub("SoleProprietorship", "Sole Owner", distppp$BusinessType)
+distppp$BusinessType <- sub("SoleProprietorship", "Sole_Owner", distppp$BusinessType)
 
-distppp$BusinessType <- sub("Non-ProfitChildcareCenter", "NP Child Care", distppp$BusinessType)
+distppp$BusinessType <- sub("Non-ProfitChildcareCenter", "NP_Child_Care", distppp$BusinessType)
 
 distppp$BusinessType <- sub("EmployeeStockOwnershipPlanESOP", "ESOP", distppp$BusinessType)
 
-distppp$BusinessType <- sub("IndependentContractors", "Ind. Contractor", distppp$BusinessType)
+distppp$BusinessType <- sub("IndependentContractors", "Ind_Contractor", distppp$BusinessType)
 
-distppp$BusinessType <- sub("NonProfit", "Non Profit", distppp$BusinessType)
+distppp$BusinessType <- sub("NonProfit", "Non_Profit", distppp$BusinessType)
 
 # Dummy Coding 
 
