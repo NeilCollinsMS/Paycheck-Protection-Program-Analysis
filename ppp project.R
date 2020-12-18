@@ -72,11 +72,65 @@ for(i in 1:length(distppp$NonProfit)){
   }
 }
 
-# Generate dummy variables for every business type, potentially lender
+distppp$City <- NULL # At this point, I realized there were far too many cities to encode or create meaningful buckets, state will suffice
 
-# Multivariate regression analysis utilizing necessary variables
+# Filling in blank business types with placeholder "Unknown"
 
-# Post-hoc analysis
+distppp$BusinessType <- as.factor(distppp$BusinessType)
+
+distppp$BusinessType <- sub("^$","Unknown",distppp$BusinessType)
+
+# Cleaning up column names so dummy encoding is a bit nicer looking. This got a little dirty but overall it was sorted out. 
+
+# There were easier ways to redo this but while long winded, it was an easy fix. 
+
+distppp$BusinessType <- sub("Non-Profit Organization" ,"Non Profit",distppp$BusinessType)
+
+distppp$BusinessType <- sub("Subchapter S Corporation" ,"Subchapter S",distppp$BusinessType)
+
+distppp$BusinessType <- sub("Limited Liability Company" ,"",distppp$BusinessType) #There was something funky going on with this string, had to break it down
+
+distppp$BusinessType <- gsub("()","",distppp$BusinessType)
+
+distppp$BusinessType <- gsub(" *","",distppp$BusinessType) # Removed all spaces, was easier to fix this than the problems I was having with a certain column
+
+distppp$BusinessType <- sub("Self-EmployedIndividuals", "Self Employed", distppp$BusinessType)
+
+distppp$BusinessType <- sub("SubchapterS", "Subchapter S", distppp$BusinessType)
+
+distppp$BusinessType <- sub("ProfessionalAssociation", "Professional Association", distppp$BusinessType)
+
+distppp$BusinessType <- sub("JointVenture", "Joint Venture", distppp$BusinessType)
+
+distppp$BusinessType <- sub("RolloverasBusinessStart-UpsROB", "Rollover", distppp$BusinessType)
+
+distppp$BusinessType <- sub("LiabilityPartnership", "LLC Partnership", distppp$BusinessType)
+
+distppp$BusinessType <- sub("TenantinCommon", "Tenant In Common", distppp$BusinessType)
+
+distppp$BusinessType <- sub("SoleProprietorship", "Sole Owner", distppp$BusinessType)
+
+distppp$BusinessType <- sub("Non-ProfitChildcareCenter", "NP Child Care", distppp$BusinessType)
+
+distppp$BusinessType <- sub("EmployeeStockOwnershipPlanESOP", "ESOP", distppp$BusinessType)
+
+distppp$BusinessType <- sub("IndependentContractors", "Ind. Contractor", distppp$BusinessType)
+
+distppp$BusinessType <- sub("NonProfit", "Non Profit", distppp$BusinessType)=
+
+# Dummy Coding 
+
+for(i in unique(distppp$BusinessType)){
+  distppp[paste("Type", i, sep = "_")] <- ifelse(distppp$BusinessType == i, 1, 0)}
+
+distppp <- distppp[!(distppp$Type_Rollover == 1),] # Only 4 companies, not enough to work with and I want to avoid skewing
+
+distppp$Type_Rollover <- NULL 
+
+distppp <- distppp[!(distppp$`Type_Tenant In Common` == 1),] # Only 20 companies, same reasoning as above
+
+distppp$`Type_Tenant In Common` <- NULL
+
 
 
 
