@@ -113,7 +113,15 @@ distppp <- distppp[!(distppp$Type_Tenant_in_Common == 1),] # Only 20 companies, 
 
 distppp$Type_Tenant_in_Common <- NULL
 
+distppp <- distppp[!(distppp$Type_Joint_Venture == 1),] # Only 76 entries out of tens of thousands. Not quite enough for me.
 
+distppp$Type_Joint_Venture <- NULL
+
+# Type_Independent_Contractors has 157 entries, I've accepted that as a valid baseline, but I'll adjust it in the regression if it causes issues.
+
+# There are over 4,000 individual lenders, obviously too many to dummy encode. I'll decide what to do with these at a later date. 
+
+# My current plan is to run the regressions with them intact and filter to generate different models at a later point. 
 
 
 
