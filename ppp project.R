@@ -149,6 +149,45 @@ count(distppp,distppp$ï..MaxLoan) # Smaller loans more common...makes sense
 
 # General Regression Model 1
 
+# With this model, I will form a baseline and look for multicolinearity. I'll work towards an accurate general model, and then look into buckets. 
+
+# The Lender column eats way too much RAM, I am going to exclude until/if I find an efficient bucketing solution.
+
+# I also don't currently intend to dummy encode all 50 states + DC and territories, so I will give that its own exploration later.
+
+# I might remove JobsRetained as it is more of an effect than a cause...but I might draw some conclusions from it...stay tuned
+
+hist(distppp$JobsRetained) # Checking for outliers quickly
+
+Model1 <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Non_Profit + Type_Subchapter_S + Type_Corporation + Type_Unknown
+              + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust + Type_Limited_Liability_Partnership
+              + Type_NP_Child_Care + Type_Independent_Contractors + Type_Self_Employed, data = distppp)
+
+summary(Model1)
+
+# Type_Unknown, Type_NP_Child_care, Type_Independent_Contractors, Type_Self_Employed not statistically significant
+
+Model1b <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Non_Profit + Type_Subchapter_S + Type_Corporation
+           + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust 
+           + Type_Limited_Liability_Partnership, data = distppp)
+
+summary(Model1b)
+
+library(car)
+
+vif(Model1b)
+
+Model1c <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Subchapter_S + Type_Corporation
+               + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust 
+               + Type_Limited_Liability_Partnership, data = distppp)
+
+summary(Model1c)
+
+vif(Model1c) # Removed Type_Non_Profit, because it very understandably had high multicollinearity with NonProfit
+
+# VIF was 61+, but now every feature is VIF ~1 so multicollinearity is realistically dealt with. AIC time. 
+
+
 
 
 
