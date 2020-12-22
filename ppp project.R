@@ -123,6 +123,31 @@ distppp$Type_Joint_Venture <- NULL
 
 # My current plan is to run the regressions with them intact and filter to generate different models at a later point. 
 
+# Replacing NULL values in the Jobs Retained Column with 0
+
+distppp$JobsRetained[is.na(distppp$JobsRetained)] <- 0
+
+#################################
+
+# General Statistical Information:
+
+count(distppp,distppp$BusinessType) # Number of each type of business
+
+count(distppp,distppp$State) # Number records from each state
+
+distppp <- distppp[!(distppp$State == 'XX'),] # Unsure was XX was, but there were only 16 records so I'm going to live without it
+
+count(distppp,distppp$NAICSCode) 
+
+# After doing some research into these industry clasificiation codes (NAICS), I'm going to leave them as is...for the moment
+
+unique(distppp$ï..MaxLoan)
+
+count(distppp,distppp$ï..MaxLoan) # Smaller loans more common...makes sense
+
+#################################
+
+# General Regression Model 1
 
 
 
