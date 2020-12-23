@@ -9,8 +9,14 @@
 
 ppp <- read.csv('c://Users/Neil/Desktop/PPP_data_150k_plus.csv')
 
-# Given that I am using some unoptimized cleaning methods, I like to runthe below code periodically so I have a CSV backup if my workspace is cleared on accident
-# library(openxlsx)
+library(car)
+library(openxlsx)
+library(tidyverse)
+library(tm)
+library(ggplot2)
+library(MASS)
+
+# Given that I am using some unoptimized cleaning methods, I like to run the below code periodically so I have a CSV backup if my workspace is cleared on accident
 # write.xlsx(distppp, "c://Users/Neil/Desktop/filteredPPP.csv")
 
 # Data Exploration
@@ -25,8 +31,6 @@ summary(ppp)
 # I will be utilizing the max value of loans available in the data set's range as the exact loan distribution is unknown. 
 # In this section I will be cleaning the extra characters from the formatted data so that it can be more easily utilized in a regression.
 
-library(tidyverse)
-
 distppp <- select(ppp, LoanRange, City, State, NAICSCode, BusinessType, NonProfit, JobsRetained, Lender) 
 
 # Business name, address, zip code too broad for now. RaceEthnicity, Gender, Veteran too many missing data points, CD is repeat info
@@ -34,8 +38,6 @@ distppp <- select(ppp, LoanRange, City, State, NAICSCode, BusinessType, NonProfi
 # DateApproved left out initially but may be looked at later though all approvals were within an approximate 1 month range before the funds depleted
 
 # Removing extra characters, spaces, coercing numeric
-
-library(tm)
 
 distppp$LoanRange <- sub(". ","", distppp$LoanRange) # Removes the letter and space before each value
 
@@ -172,8 +174,6 @@ Model1b <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Non_Prof
            + Type_Limited_Liability_Partnership, data = distppp)
 
 summary(Model1b)
-
-library(car)
 
 vif(Model1b)
 
