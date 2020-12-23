@@ -187,18 +187,49 @@ vif(Model1c) # Removed Type_Non_Profit, because it very understandably had high 
 
 # VIF was 61+, but now every feature is VIF ~1 so multicollinearity is realistically dealt with. AIC time. 
 
+stepAIC(Model1c)
 
+Model1d <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + Type_Subchapter_S + Type_Corporation
+               + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust 
+               + Type_Limited_Liability_Partnership, data = distppp)
 
+# Jobs Retained has a noticeably higher AIC than the rest of the variables
 
+stepAIC(Model1d)
 
+# AIC actually got worse between these two models, removing NAICSCode on a hunch.
 
+Model1e <- lm(ï..MaxLoan ~ NonProfit + Type_Subchapter_S + Type_Corporation
+               + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust 
+               + Type_Limited_Liability_Partnership, data = distppp)
 
+stepAIC(Model1e)
 
+# Overall Model Evaluation
 
+AIC(Model1) # 19807380
+summary(Model1) # R-squared = .4597, F is statistically significant
 
+AIC(Model1b) # 19807377
+summary(Model1b) # R-squared = .4597, F is statistically significant
 
+AIC(Model1c) # 19807415
+summary(Model1c) # R-squared = .4597, F is statistically significant
 
+# Models 1d and 1e are by far the worst models, removing JobsRetained seems to have triggered this
 
+AIC(Model1d) # 20203740
+summary(Model1d) # R-squared = .009819, F is statistically significant
 
+AIC(Model1e) # 20411753
+summary(Model1e) # R-squared = .005908, F is statistically significant
+
+#################################
+
+# Targeted Regression Model 1
+
+# At this point, looking at how poor these models are, I'm going to subset the data and see if I can gauge factors more effectively.
+
+sub1_ppp <- subset(distppp, distppp$ï..MaxLoan == 1e+07) # Subsetting by the highest loan values first
 
 
