@@ -1,0 +1,15 @@
+# Table and Model Glossary
+
+# ppp - Complete data set from Kaggle
+
+# distppp - Filtered and cleaned data set
+
+# Model 1 to Model 1e - MLR models generated using distppp, filtering by significance, VIF (multicollinearity), AIC
+
+# sub1ppp - distppp but only for the $5 - 10 million loan range
+
+# sub2ppp - sub1ppp removing features with low frequency in sub1ppp
+
+# Model 2 and Model 2b - MLR models using sub1ppp | SCRAPPED
+
+# Model 2c - MLR model using sub2ppp | SCRAPPED
