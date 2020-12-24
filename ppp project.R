@@ -232,4 +232,95 @@ summary(Model1e) # R-squared = .005908, F is statistically significant
 
 sub1_ppp <- subset(distppp, distppp$ï..MaxLoan == 1e+07) # Subsetting by the highest loan values first
 
+count(sub1_ppp,BusinessType)
+
+# Just going to immediately remove Type_Non_Profit because I already know there is high multicollinearity 
+
+Model2 <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Subchapter_S + Type_Corporation + Type_Unknown
+              + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust + Type_Limited_Liability_Partnership
+              + Type_NP_Child_Care + Type_Independent_Contractors + Type_Self_Employed, data = sub1_ppp)
+
+summary(Model2)
+
+# Excluded features with too few instances
+
+Model2b <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Subchapter_S + Type_Corporation + Type_Partnership + Type_LLC, data = sub1_ppp)
+
+summary(Model2b)
+
+# Neither of these models are generating statistically significant figures. Time to re-evaluate my subsetting and approach.
+
+# I am going to completely remove data points that don't meat the 5 target business type features and see if there is any adjustment
+
+# However, we'll first take the distributions of the maximum loan value among business types. These models may be scrapped, but basic stats go a long way.
+
+count(sub1_ppp,BusinessType)
+
+# Cooperative: 13/4839 = 0.27%
+
+# Corporation: 2005/4839 = 41.43%
+
+# ESOP: 31/4839 = 0.64%
+
+# Limited Liabiliaty Partnership: 76/4839 = 1.57%
+
+# LLC: 1120/4839 = 23.15%
+
+# Non Profit: 407/4839 = 8.41%
+
+# Non Profit Child Care: 3/4839 = 0.06%
+
+# Partnership: 119/4839 = 2.46%
+
+# Professional Association: 18/4839 = 0.37%
+
+# Sole Proprietorship: 28/4839 = 0.58%
+
+# Subchapter_S: 1003/4839 = 20.73%
+
+# Trust: 5/4839 = 0.10%
+
+# Unknown: 11/4839 = .23%
+
+#############################
+
+# Average Jobs Retained by Business Type
+
+aggregate(sub1_ppp[,6],list(sub1_ppp$BusinessType),mean)
+
+aggregate(sub1_ppp[,6],list(sub1_ppp$BusinessType),max)
+
+aggregate(sub1_ppp[,6],list(sub1_ppp$BusinessType),min)
+
+ggplot(sub1_ppp, aes(x = BusinessType, y = JobsRetained)) + stat_summary(fun="mean", geom="bar")
+
+ggplot(sub1_ppp, aes(x=reorder(BusinessType, JobsRetained, mean), y = JobsRetained)) + stat_summary(fun="mean",geom="bar")
+
+# Non Profit Childcare reports an average of 500 saved jobs; which is the data max. This number could be higher or they could just be reporting the max.
+
+# Nonprofit, Subchapter_S, Corporation, Partnership, LLC being left in subset 2
+
+sub2_ppp <- sub1_ppp[!(sub1_ppp$BusinessType == 'Cooperative'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'ESOP'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'Limited_Liability_Partnership'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'NP_Child_Care'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'Professional_Association'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'Sole_Proprietorship'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'Trust'),]
+
+sub2_ppp <- sub2_ppp[!(sub2_ppp$BusinessType == 'Unknown'),]
+
+Model2c <- lm(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Subchapter_S + Type_Corporation + Type_Partnership + Type_LLC, data = sub1_ppp)
+
+summary(Model2c)
+
+# Scrapping this model, nothing changed, as expected, but I figured I would try. Only NonProfit is even close to being significant. 
+
+# Back to the drawing board, but at least I was able to get some summary statistics of the highest loan distribution
 
