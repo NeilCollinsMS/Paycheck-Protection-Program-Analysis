@@ -18,6 +18,7 @@ library(MASS)
 
 # Given that I am using some unoptimized cleaning methods, I like to run the below code periodically so I have a CSV backup if my workspace is cleared on accident
 # write.xlsx(distppp, "c://Users/Neil/Desktop/filteredPPP.csv")
+# write.csv(distppp, "c://Users/Neil/Desktop/distPPPfinal.csv") --> For Tableau
 
 # Data Exploration
 
