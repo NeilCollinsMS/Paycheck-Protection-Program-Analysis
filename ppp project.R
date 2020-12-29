@@ -15,6 +15,10 @@ library(tidyverse)
 library(tm)
 library(ggplot2)
 library(MASS)
+library(foreign)
+library(nnet)
+library(reshape2)
+library(AER)
 
 # Given that I am using some unoptimized cleaning methods, I like to run the below code periodically so I have a CSV backup if my workspace is cleared on accident
 # write.xlsx(distppp, "c://Users/Neil/Desktop/filteredPPP.csv")
@@ -325,3 +329,26 @@ summary(Model2c)
 
 # Back to the drawing board, but at least I was able to get some summary statistics of the highest loan distribution
 
+#############################
+
+# At this point, I realized that even though I moved the values to maximums, I was dealing with categorical data
+
+# My multivariate regression models weren't working because I needed to use multinomial logistic regression
+
+Model3 <- multinom(ï..MaxLoan ~ NAICSCode + NonProfit + JobsRetained + Type_Subchapter_S + Type_Corporation + Type_Unknown
+              + Type_Partnership + Type_Professional_Association + Type_Sole_Proprietorship + Type_ESOP + Type_Trust + 
+                Type_Limited_Liability_Partnership + Type_NP_Child_Care + Type_Independent_Contractors + Type_Self_Employed, data = distppp)
+
+summary(Model3)
+coeftest(Model3)
+
+exp(coef(Model3))
+head(fitted(Model3))
+
+# At this point, my model seems significant though we have gone deeper into Machine Learning than intended with this data set.
+
+# I will be doing some reading, and I will also have to generate a model that has separate test and training data.
+
+# As I am rather busy at the moment, this project will likely go on the backburner, but I intend to press on in the long term. 
+
+# Classification models will be explored.
