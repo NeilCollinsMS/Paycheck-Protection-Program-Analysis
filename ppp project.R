@@ -345,9 +345,9 @@ coeftest(Model3)
 exp(coef(Model3))
 head(fitted(Model3))
 
-# At this point, my model seems significant though we have gone deeper into Machine Learning than intended with this data set.
+# At this point, this project will be moving a little slower as I work on classification models.
 
-# I will be doing some reading, and I will also have to generate a model that has separate test and training data.
+# I will be doing some reading, and I will also have to decide if I need to break the data set into training and test sets.
 
 # As I am rather busy at the moment, this project will likely go on the backburner, but I intend to press on in the long term. 
 
