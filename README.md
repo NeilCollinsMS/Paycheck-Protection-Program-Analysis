@@ -7,3 +7,5 @@ Overarching Business Question: What factors played the largest roles in PPP loan
 Data Source: https://www.kaggle.com/susuwatari/ppp-loan-data-paycheck-protection-program
 
 Packages: Tidyverse, ggplot2, tm, car (for VIF), MASS (for stepAIC)
+
+PROJECT OUTDATED - NEW PROJECT UTILIZING TRAINING AND TESTING DATA IN PROGRESS
