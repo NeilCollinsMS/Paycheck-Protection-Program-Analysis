@@ -1,3 +1,13 @@
+# REVIEW OF MY FAILURES: 
+
+# 1. Using straight linear regression when using the maximums made this a categorical type problem
+
+# 2. Not pre-splitting my data into test and training data sets & not using cross validation
+
+# 3. Not looking into MSE/RMSE/etc...
+
+##############################
+
 # General Regression Model 1
 
 # With this model, I will form a baseline and look for multicolinearity. I'll work towards an accurate general model, and then look into buckets. 
